@@ -16,23 +16,24 @@ A simple Python application that allows you to share files from your local machi
 
 ## Installation Instructions
 
-### 1. Download The ZIP File
-```
-Download zip file of the repository from: 'https://github.com/SoumyaRKN/File-Sharing-App'
-```
+### 1. Install The Application
+You can install the application in one of two ways:
 
-### 2. Clone The Repository
+#### Option 1: Download The ZIP File
+1. Go to the [GitHub repository](https://github.com/SoumyaRKN/File-Sharing-App).
+2. Click on the green "Code" button and select "Download ZIP".
+3. Extract the downloaded ZIP file to your desired location.
+
+#### Option 2: Clone The Repository
+If you have `git` installed, you can clone the repository using the following commands:
 ```bash
 git clone https://github.com/SoumyaRKN/File-Sharing-App.git
 cd File-Sharing-App
 ```
 
-### 3. Setup The Application
+### 2. Setup And Run The Application
+Setup and Run the application using following commands:
 ```bash
 sudo bash setup.sh
-```
-
-### 4. Run The Application
-```bash
 sudo bash run.sh
 ```
