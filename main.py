@@ -13,15 +13,22 @@ class Color:
     RESET = "\033[0m"  # Reset
 
 
+class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
+    def end_headers(self):
+        # Force download for all file types
+        self.send_header(
+            "Content-Disposition",
+            f'attachment; filename="{os.path.basename(self.path)}"',
+        )
+        super().end_headers()
+
+
 def start_server(directory, port=8080):
     # Change the current working directory to the specified directory
     os.chdir(directory)
 
-    # Set up the request handler
-    handler = http.server.SimpleHTTPRequestHandler
-
-    # Start the server
-    with socketserver.TCPServer(("", port), handler) as httpd:
+    # Start the server with the custom request handler
+    with socketserver.TCPServer(("", port), CustomHTTPRequestHandler) as httpd:
         print(
             f"{Color.GREEN}Serving files from '{directory}' on: http://localhost:{port}{Color.RESET}"
         )
