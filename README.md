@@ -15,6 +15,8 @@ This application allows you to easily share files over a local network using a s
 
 - Python 3.x
 - `pip` (Python package manager)
+
+## Note:
 - Both the sharing device and receiving device must be connected to the same network. This means they should either be on the same Wi-Fi network or connected to the hotspot of the sharing machine.
 
 ## Installation Instructions
@@ -51,6 +53,3 @@ The server supports downloading various file types, including but not limited to
 - Archives: .zip, .rar, .tar, .gz, .7z
 - Code Files: .js, .py, .html, .css
 - Other: .epub, .mobi
-
-### Note:
-- Both the sharing device and receiving device must be connected to the same network. This means they should either be on the same Wi-Fi network or connected to the hotspot of the sharing machine.
