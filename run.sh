@@ -3,13 +3,14 @@
 # Color codes
 RED='\033[0;31m'
 GREEN='\033[0;32m'
-LIGHT_BLUE='\033[1;34m'
+CYAN='\033[1;36m'
+BLUE='\033[1;34m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # Function to print logo
 logo() {
-    echo -e "\n${LIGHT_BLUE}"
+    echo -e "\n${CYAN}"
     echo -e "**************************************************************************************************"
     echo -e "******************************************  File Share  ******************************************"
     echo -e "**************************************************************************************************"
@@ -22,9 +23,22 @@ activate_venv() {
     if [[ "$VIRTUAL_ENV" != "" ]]; then
         echo -e "${GREEN}Virtual environment is already activated.${NC}"
     else
-        echo -e "${LIGHT_BLUE}Activating virtual environment...${NC}"
+        echo -e "${CYAN}Activating virtual environment...${NC}"
         source .venv/bin/activate
         echo -e "${GREEN}Virtual environment activated.${NC}"
+    fi
+}
+
+# Prompt for directory path
+prompt_directory() {
+    echo -e "${BLUE}Enter the full path of the directory to serve:${NC}"
+    read directory
+    if [[ -d "$directory" ]]; then
+        echo -e "${GREEN}Directory exists. Starting the server...${NC}"
+        python3 main.py "$directory"
+    else
+        echo -e "${RED}Error: The specified directory does not exist.${NC}"
+        exit 1
     fi
 }
 
@@ -32,5 +46,5 @@ activate_venv() {
 logo
 activate_venv
 
-# Run the bot main script
-python3 main.py
+# Prompt for directory and run main script
+prompt_directory

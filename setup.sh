@@ -95,9 +95,52 @@ venv_setup() {
     fi
 }
 
+# Function to install dependencies from 'requirements.txt' or manually if not found
+install_packages() {
+    local PIP="python3 -m pip"
+
+    # Default packages to install if requirements.txt is not found
+    local DEFAULT_PACKAGES=("qrcode" "pillow")
+
+    if [[ ! -f "./requirements.txt" ]]; then
+        echo -e "${YELLOW}requirements.txt not found. Checking for default packages to install...${NC}"
+
+        # Loop through each default package and check if it's installed
+        for package in "${DEFAULT_PACKAGES[@]}"; do
+            if ! $PIP show "$package" &> /dev/null; then
+                echo -e "${LIGHT_BLUE}Installing ${package}...${NC}"
+                $PIP install "$package"
+            else
+                echo -e "${GREEN}${package} is already installed.${NC}"
+            fi
+        done
+    else
+        echo -e "${LIGHT_BLUE}Installing dependencies from requirements.txt...${NC}"
+
+        # Read the requirements.txt and check for each package
+        while IFS= read -r package; do
+            # Ignore comments and empty lines
+            if [[ -z "$package" || "$package" == \#* ]]; then
+                continue
+            fi
+
+            if ! $PIP show "$package" &> /dev/null; then
+                echo -e "${LIGHT_BLUE}Installing ${package}...${NC}"
+                $PIP install "$package"
+            else
+                echo -e "${GREEN}${package} is already installed.${NC}"
+            fi
+        done < ./requirements.txt
+    fi
+
+    echo -e "${GREEN}Package installation completed.${NC}"
+}
+
+
 # Main Script
 logo
 detect_os
 check_python
 venv_setup
+install_packages
 show_usage
